@@ -49,7 +49,27 @@ npm run ios
 
 # Atau buka di Expo Go app
 npm start
+
+# Untuk akses dari luar jaringan (tunnel mode)
+npm run start:tunnel
+
+# Untuk akses dalam jaringan yang sama (LAN mode)
+npm run start:lan
 ```
+
+**Catatan Tunnel Mode:**
+- Tunnel mode membuat URL yang bisa diakses dari mana saja
+- Bagikan URL/QR code yang muncul ke teman
+- Jika error adb muncul, script akan mengabaikannya dan tunnel tetap berjalan
+- Tunggu beberapa detik untuk tunnel URL muncul di terminal
+
+**Alternatif jika tunnel mode bermasalah:**
+1. Install Android SDK tools: `sudo apt-get install android-tools-adb`
+2. Atau gunakan ngrok manual:
+   - Install ngrok dari https://ngrok.com
+   - Jalankan: `ngrok http 8081` (di terminal terpisah)
+   - Jalankan: `npm start` (Expo normal)
+   - Bagikan URL ngrok ke teman
 
 ## Testing
 

@@ -1,26 +1,26 @@
 {
   "expo": {
-    "name": "MobileVersion",
+    "name": "mybem",
     "slug": "MobileVersion",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logobem.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/logobem.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#8B0000"
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.arioveisa.MobileVersion"
+      "bundleIdentifier": "com.arioveisa.mybem"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/logobem.png",
+        "backgroundColor": "#8B0000"
       },
-      "package": "com.arioveisa.MobileVersion"
+      "package": "com.arioveisa.mybem"
     },
     "web": {
       "favicon": "./assets/favicon.png"
