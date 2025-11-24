@@ -19,7 +19,7 @@ const Stack = createNativeStackNavigator();
 // Component untuk handle navigation berdasarkan role
 function AppNavigator() {
   const { user, loading, isAuthenticated, getPrimaryRole } = useAuth();
-  const [hasSeenOnboarding, setHasSeenOnboarding] = useState(null);
+  const [hasSeenOnboarding, setHasSeenOnboarding] = useState(false); // Start with false
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -31,24 +31,14 @@ function AppNavigator() {
       // DEVELOPMENT MODE: Reset onboarding agar selalu muncul saat testing
       // COMMENT BARIS INI SAAT PRODUCTION/FINAL BUILD!
       await AsyncStorage.removeItem('hasSeenOnboarding');
-      console.log('✅ Onboarding reset for development');
       
-      // Force set to false untuk memastikan onboarding muncul
-      const seenOnboarding = await AsyncStorage.getItem('hasSeenOnboarding');
-      const hasSeen = seenOnboarding === 'true';
-      
-      // DEVELOPMENT: Force show onboarding
+      // Force set ke false untuk memastikan onboarding selalu muncul di development
       setHasSeenOnboarding(false);
       
-      // Debug log
-      console.log('📱 Onboarding check:', { 
-        seenOnboarding, 
-        hasSeen, 
-        willShow: true, // Always show in development
-        platform: 'mobile'
-      });
+      console.log('✅ [DEV] Onboarding reset - will always show');
     } catch (error) {
       console.log('Onboarding check error:', error);
+      // Jika error, tetap set false agar onboarding muncul
       setHasSeenOnboarding(false);
     } finally {
       setIsLoading(false);
@@ -91,16 +81,25 @@ function AppNavigator() {
     );
   }
 
+  // Determine initial route
+  const getInitialRoute = () => {
+    // DEVELOPMENT: Always show onboarding (hasSeenOnboarding is always false)
+    if (!hasSeenOnboarding) {
+      return 'Onboarding';
+    }
+    
+    // Production logic (jika hasSeenOnboarding = true)
+    if (isAuthenticated) {
+      return getDashboardScreen();
+    }
+    
+    return 'Login';
+  };
+
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={
-          !hasSeenOnboarding
-            ? 'Onboarding'
-            : isAuthenticated
-            ? getDashboardScreen()
-            : 'Login'
-        }
+        initialRouteName={getInitialRoute()}
         screenOptions={{
           headerShown: false,
         }}

@@ -61,8 +61,10 @@ const OnboardingScreen = ({ navigation }) => {
 
   const handleFinish = async () => {
     try {
+      // DEVELOPMENT: Comment untuk selalu reset onboarding
+      // PRODUCTION: Uncomment baris di bawah
       // await AsyncStorage.setItem('hasSeenOnboarding', 'true');
-      console.log('Onboarding finished, saved to AsyncStorage');
+      console.log('✅ Onboarding finished - navigating to Login');
       navigation.replace('Login');
     } catch (error) {
       console.log('Error saving onboarding status:', error);
