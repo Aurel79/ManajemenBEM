@@ -70,6 +70,8 @@ Aplikasi mobile React Native menggunakan Expo.
 - ✅ Token persistence
 - ✅ Protected routes
 - ✅ Modern UI dengan tema BEM TEL-U
+- ✅ Role-based dashboard (Admin, Presiden, Menteri, Anggota)
+- ✅ Onboarding screen
 
 ### Tech Stack
 - React Native 0.81
