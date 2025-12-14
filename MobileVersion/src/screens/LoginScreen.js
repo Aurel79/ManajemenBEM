@@ -55,37 +55,8 @@ const LoginScreen = ({ navigation }) => {
       return 'Welcome';
     }
 
-    // Priority sesuai dengan DatabaseSeeder
-    const priority = [
-      'Super Admin',
-      'Admin',
-      'Presiden BEM',
-      'Presiden',
-      'Wakil Presiden BEM',
-      'Sekretaris',
-      'Bendahara',
-      'Menteri',
-      'Anggota'
-    ];
-    
-    for (const role of priority) {
-      if (userRoles.includes(role)) {
-        // Mapping role ke dashboard
-        if (role === 'Super Admin' || role === 'Admin' || role === 'Sekretaris' || role === 'Bendahara') {
-          return 'AdminDashboard';
-        }
-        if (role === 'Presiden BEM' || role === 'Presiden' || role === 'Wakil Presiden BEM') {
-          return 'PresidenDashboard';
-        }
-        if (role === 'Menteri') {
-          return 'MenteriDashboard';
-        }
-        if (role === 'Anggota') {
-          return 'AnggotaDashboard';
-        }
-      }
-    }
-    return 'Welcome';
+    // All roles now use the unified SuperAdminDashboard with role-based menus
+    return 'SuperAdminDashboard';
   };
 
   const handleLogin = async () => {
@@ -145,70 +116,70 @@ const LoginScreen = ({ navigation }) => {
           >
             <View style={styles.cardContent}>
               <View style={styles.form}>
-            {/* Username Field */}
-            <View style={styles.inputContainer}>
-              <Text style={styles.inputLabel}>Username</Text>
-              <View style={styles.inputWrapper}>
-                <Ionicons name="person-outline" size={20} color="#FFFFFF" style={styles.inputIcon} />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Username"
-                  placeholderTextColor="rgba(255, 255, 255, 0.6)"
-                  value={email}
-                  onChangeText={setEmail}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                />
-              </View>
-            </View>
+                {/* Username Field */}
+                <View style={styles.inputContainer}>
+                  <Text style={styles.inputLabel}>Username</Text>
+                  <View style={styles.inputWrapper}>
+                    <Ionicons name="person-outline" size={20} color="#FFFFFF" style={styles.inputIcon} />
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Username"
+                      placeholderTextColor="rgba(255, 255, 255, 0.6)"
+                      value={email}
+                      onChangeText={setEmail}
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                    />
+                  </View>
+                </View>
 
-            {/* Password Field */}
-            <View style={styles.inputContainer}>
-              <Text style={styles.inputLabel}>Password</Text>
-              <View style={styles.inputWrapper}>
-                <Ionicons name="lock-closed-outline" size={20} color="#FFFFFF" style={styles.inputIcon} />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Password"
-                  placeholderTextColor="rgba(255, 255, 255, 0.6)"
-                  value={password}
-                  onChangeText={setPassword}
-                  secureTextEntry={!showPassword}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                />
+                {/* Password Field */}
+                <View style={styles.inputContainer}>
+                  <Text style={styles.inputLabel}>Password</Text>
+                  <View style={styles.inputWrapper}>
+                    <Ionicons name="lock-closed-outline" size={20} color="#FFFFFF" style={styles.inputIcon} />
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Password"
+                      placeholderTextColor="rgba(255, 255, 255, 0.6)"
+                      value={password}
+                      onChangeText={setPassword}
+                      secureTextEntry={!showPassword}
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                    />
+                    <TouchableOpacity
+                      onPress={() => setShowPassword(!showPassword)}
+                      style={styles.eyeIcon}
+                    >
+                      <Ionicons
+                        name={showPassword ? "eye-outline" : "eye-off-outline"}
+                        size={20}
+                        color="#FFFFFF"
+                      />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+
+                {/* Sign In Button */}
                 <TouchableOpacity
-                  onPress={() => setShowPassword(!showPassword)}
-                  style={styles.eyeIcon}
+                  style={[styles.signInButton, loading && styles.buttonDisabled]}
+                  onPress={handleLogin}
+                  disabled={loading}
                 >
-                  <Ionicons 
-                    name={showPassword ? "eye-outline" : "eye-off-outline"} 
-                    size={20} 
-                    color="#FFFFFF" 
-                  />
+                  <LinearGradient
+                    colors={['#030001', '#97011E']}
+                    style={styles.buttonGradient}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                  >
+                    {loading ? (
+                      <ActivityIndicator color="#fff" />
+                    ) : (
+                      <Text style={styles.signInButtonText}>Sign in</Text>
+                    )}
+                  </LinearGradient>
                 </TouchableOpacity>
-              </View>
-            </View>
-
-            {/* Sign In Button */}
-            <TouchableOpacity
-              style={[styles.signInButton, loading && styles.buttonDisabled]}
-              onPress={handleLogin}
-              disabled={loading}
-            >
-              <LinearGradient
-                colors={['#030001','#97011E']}
-                style={styles.buttonGradient}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-              >
-                {loading ? (
-                  <ActivityIndicator color="#fff" />
-                ) : (
-                  <Text style={styles.signInButtonText}>Sign in</Text>
-                )}
-              </LinearGradient>
-            </TouchableOpacity>
               </View>
             </View>
           </LinearGradient>
